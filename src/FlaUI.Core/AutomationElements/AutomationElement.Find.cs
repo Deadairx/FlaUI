@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Definitions;
+using FlaUI.Core.Tools;
 
 namespace FlaUI.Core.AutomationElements
 {
@@ -13,7 +14,7 @@ namespace FlaUI.Core.AutomationElements
         /// </summary>
         public AutomationElement[] FindAll(TreeScope treeScope, ConditionBase condition)
         {
-            return FrameworkAutomationElement.FindAll(treeScope, condition);
+            return Retry.WhileException(()=>FrameworkAutomationElement.FindAll(treeScope, condition));
         }
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace FlaUI.Core.AutomationElements
         /// </summary>
         public AutomationElement FindFirst(TreeScope treeScope, ConditionBase condition)
         {
-            return FrameworkAutomationElement.FindFirst(treeScope, condition);
+            return Retry.WhileException(()=> FrameworkAutomationElement.FindFirst(treeScope, condition));
         }
 
         /// <summary>
